@@ -1,4 +1,4 @@
-package com.alien.attendance.DTO;
+package com.alien.attendance.DTO.Auth;
 
 import lombok.Data;
 

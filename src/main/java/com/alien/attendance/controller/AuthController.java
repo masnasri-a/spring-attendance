@@ -1,7 +1,7 @@
 package com.alien.attendance.controller;
 
-import com.alien.attendance.DTO.LoginDTO;
-import com.alien.attendance.DTO.UserDTO;
+import com.alien.attendance.DTO.Auth.LoginDTO;
+import com.alien.attendance.DTO.Auth.UserDTO;
 import com.alien.attendance.repository.UserRepository;
 import com.alien.attendance.service.UserService;
 import com.alien.attendance.util.BodyValidation;
@@ -28,12 +28,12 @@ public class AuthController {
     }
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "Hello World";
     }
 
     @PostMapping("/create_user")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO user){
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO user) {
         try {
             ResponseEntity<?> validationResponse = bodyValidation.validateBody(user);
             if (!validationResponse.getStatusCode().is2xxSuccessful()) {
@@ -41,13 +41,13 @@ public class AuthController {
             }
             UserService userService = new UserService(this.userRepository);
             return userService.createUser(user);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Internal Server Error");
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
         try {
             ResponseEntity<?> validationResponse = bodyValidation.validateBody(loginDTO);
             if (!validationResponse.getStatusCode().is2xxSuccessful()) {
@@ -55,7 +55,7 @@ public class AuthController {
             }
             UserService userService = new UserService(this.userRepository);
             return userService.login(loginDTO);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Internal Server Error");
         }
     }
